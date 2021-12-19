@@ -6,12 +6,14 @@ import "./style.css";
 
 export default function RotaAssentos(){
 
-    const [seatsChoosen, setSeatsChoosen] = useState([]);
     const {idSessao} = useParams();
+    const [seatsChoosen, setSeatsChoosen] = useState([]);
     const [assentos, setAssentos] = useState({});
+    const [nameClient, setNameClient] = useState('');
+    const [cpfClient, setCpfClient] = useState('');
     console.log(assentos);
     console.log(seatsChoosen);
-    //O QUE DEVE SER GUARDADO NO ARRAY NÃO DEVE SER O INDICE, MAS O ID DO ASSENTO.
+    console.log(nameClient, cpfClient);
 
     useEffect(() => {
         const PromessaAssentos = axios.get(`https://mock-api.driven.com.br/api/v4/cineflex/showtimes/${idSessao}/seats`);
@@ -42,6 +44,10 @@ export default function RotaAssentos(){
         }
     }
 
+    function sendRequestPost() {
+        alert("testando botão");
+    }
+
     return (
         <>
         <h1>Selecione o(s) assento(s)</h1>
@@ -51,6 +57,13 @@ export default function RotaAssentos(){
             {assento.name}
         </Seates>)}
         </div>
+        <div className='conteiner-assentos'>
+        <p>Nome do comprador:</p>
+        <input placeholder='Digite seu nome...' value={nameClient} onChange={(event) => setNameClient(event.target.value)} />
+        <p>CPF do comprador:</p>
+        <input placeholder='Digite seu CPF...' value={cpfClient} onChange={(event) => setCpfClient(event.target.value)} />
+        </div>
+        <button onClick={sendRequestPost}>Reservar assento(s)</button>
         </>
     );
 }

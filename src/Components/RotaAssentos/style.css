@@ -4,4 +4,14 @@
     justify-content: center;
     flex-wrap: wrap;
     gap: 8px;
+    margin-bottom: 40px;
+}
+input {
+    width: 90%;
+    height: 51px;
+
+    background: #FFFFFF;
+    border: 1px solid #D5D5D5;
+    box-sizing: border-box;
+    border-radius: 3px;
 }
