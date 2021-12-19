@@ -14,7 +14,6 @@ export default function RotaSecoes(){
         });
     }, []);
 
-
     if (Object.keys(secoes).length === 0){
         return <h1>Carregando Seções...</h1>
     }
