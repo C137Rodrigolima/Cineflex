@@ -15,3 +15,8 @@ input {
     box-sizing: border-box;
     border-radius: 3px;
 }
+
+button {
+    background: #E8833A;
+    border-radius: 3px;
+}

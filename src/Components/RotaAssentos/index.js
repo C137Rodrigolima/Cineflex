@@ -1,19 +1,18 @@
 import { useState, useEffect } from 'react';
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import axios from 'axios';
 import styled from 'styled-components';
 import "./style.css";
 
-export default function RotaAssentos(){
+export default function RotaAssentos(sendInfoRequest){
 
     const {idSessao} = useParams();
     const [seatsChoosen, setSeatsChoosen] = useState([]);
+    const [seatsNumber, setSeatsNumber] = useState([]);
     const [assentos, setAssentos] = useState({});
     const [nameClient, setNameClient] = useState('');
     const [cpfClient, setCpfClient] = useState('');
     console.log(assentos);
-    console.log(seatsChoosen);
-    console.log(nameClient, cpfClient);
 
     useEffect(() => {
         const PromessaAssentos = axios.get(`https://mock-api.driven.com.br/api/v4/cineflex/showtimes/${idSessao}/seats`);
@@ -32,20 +31,38 @@ export default function RotaAssentos(){
         if (estado === true) {
             assentos.seats[parseInt(oProprio)-1].isAvailable = "selected";
             setSeatsChoosen([...seatsChoosen, idAssento]);
+            setSeatsNumber([...seatsNumber, parseInt(oProprio)]);
         } else if (estado === "selected"){
             assentos.seats[parseInt(oProprio)-1].isAvailable = true;
-
-            const newAray= seatsChoosen.filter( (id) =>
-                {return id!=idAssento;}
+            const newArrayID= seatsChoosen.filter( (id) =>
+                {return id!==idAssento;}
             );
-            setSeatsChoosen(newAray);
+            setSeatsChoosen(newArrayID);
+            const newArrayNumber= seatsNumber.filter( (num) =>
+                {return num!==(parseInt(oProprio));}
+            );
+            setSeatsNumber(newArrayNumber);
         } else {
             alert("Esse assento não está disponível");
         }
     }
 
+    const objectMovieOrder = {
+        seatsArray: seatsNumber,
+        movieName: assentos.movie.title,
+        date: assentos.day.date,
+        sessao: assentos.name,
+        name: nameClient,
+        cpf: cpfClient
+    }
+    
     function sendRequestPost() {
-        alert("testando botão");
+        const objectSeatsOrder = {
+            ids: seatsChoosen,
+            name: nameClient,
+            cpf: cpfClient
+        }
+        const promessaEnvio = axios.post("https://mock-api.driven.com.br/api/v4/cineflex/seats/book-many", objectSeatsOrder);
     }
 
     return (
@@ -63,7 +80,18 @@ export default function RotaAssentos(){
         <p>CPF do comprador:</p>
         <input placeholder='Digite seu CPF...' value={cpfClient} onChange={(event) => setCpfClient(event.target.value)} />
         </div>
-        <button onClick={sendRequestPost}>Reservar assento(s)</button>
+        <Link to="/sucesso" state={objectMovieOrder}>
+            <button onClick={sendRequestPost}>Reservar assento(s)</button>
+        </Link>
+        <Footer>
+            <div className="bloco-filme">
+                <img src={`${assentos.movie.posterURL}`} alt={`poster ${assentos.movie.title}`}/>
+            </div>
+            <div>
+                <p>{assentos.movie.title}</p>
+                <p>{`${assentos.day.weekday} - ${assentos.name}`}</p>
+            </div>
+        </Footer>
         </>
     );
 }
@@ -87,4 +115,37 @@ border: 1px solid ${props => props.isAvailable === "selected"? "#1AAE9E" : props
 border-radius: 12px;
 
 background-color: ${props => props.isAvailable === "selected"? "#8DD7CF" : props.isAvailable? "#C3CFD9":  "#FBE192"};
+`;
+
+const Footer = styled.div `
+    width: 375px;
+    height: 117px;
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 26px;
+    line-height: 30px;
+
+    color: #293845;
+
+    display: flex;
+    align-items: center;
+
+    background: #DFE6ED;
+    border: 1px solid #9EADBA;
+
+    .bloco-filme{
+        width: 64px;
+        height: 89px;
+        margin: 0px 10px;
+
+        background: #FFFFFF;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 2px;
+    }
+    img{
+        width: 48px;
+        height: 72px;
+    }
 `;

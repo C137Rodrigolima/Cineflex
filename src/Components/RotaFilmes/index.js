@@ -10,7 +10,6 @@ export default function RotaFilmes(){
         const PromessaFilmes = axios.get('https://mock-api.driven.com.br/api/v4/cineflex/movies');
         PromessaFilmes.then(resposta => {
 			setFilmes(resposta.data);
-            console.log(resposta.data);
 		});
     }, []);
 
