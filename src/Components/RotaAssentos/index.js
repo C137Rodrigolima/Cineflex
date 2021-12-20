@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from "react-router-dom";
 import axios from 'axios';
-import styled from 'styled-components';
 import "./style.css";
+import Footer from '../styledComponents/Footer.js';
+import Seates from '../styledComponents/Seates.js';
 
-export default function RotaAssentos(sendInfoRequest){
+export default function RotaAssentos(){
 
     const {idSessao} = useParams();
     const [seatsChoosen, setSeatsChoosen] = useState([]);
@@ -100,66 +101,10 @@ export default function RotaAssentos(sendInfoRequest){
                 <img src={`${assentos.movie.posterURL}`} alt={`poster ${assentos.movie.title}`}/>
             </div>
             <div>
-                <p>{assentos.movie.title}</p>
-                <p>{`${assentos.day.weekday} - ${assentos.name}`}</p>
+                <div className='footer-text'>{assentos.movie.title}</div>
+                <div className='footer-text'>{`${assentos.day.weekday} - ${assentos.name}`}</div>
             </div>
         </Footer>
         </>
     );
 }
-
-const Seates = styled.div`
-width: 26px;
-height: 25px;
-
-font-style: normal;
-font-weight: normal;
-font-size: 11px;
-line-height: 13px;
-text-align: center;
-letter-spacing: 0.04em;
-
-display: flex;
-align-items: center;
-justify-content: center;
-
-border: 1px solid ${props => props.isAvailable === "selected"? "#1AAE9E" : props.isAvailable? "#808F9D" :  "#F7C52B"};
-border-radius: 12px;
-
-background-color: ${props => props.isAvailable === "selected"? "#8DD7CF" : props.isAvailable? "#C3CFD9":  "#FBE192"};
-`;
-
-const Footer = styled.div `
-    width: 100%;
-    height: 117px;
-    position: fixed;
-    bottom: 0;
-
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 26px;
-    line-height: 30px;
-
-    color: #293845;
-
-    display: flex;
-    align-items: center;
-
-    background: #DFE6ED;
-    border-top: 1px solid #9EADBA;
-
-    .bloco-filme{
-        width: 64px;
-        height: 89px;
-        margin: 0px 10px;
-
-        background: #FFFFFF;
-        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-        border-radius: 2px;
-    }
-    img{
-        width: 48px;
-        height: 72px;
-    }
-`;

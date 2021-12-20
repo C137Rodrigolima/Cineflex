@@ -1,8 +1,4 @@
 import "./style.css";
 export default function Header(){
-    return (
-        <>
-        <header>CINEFLEX</header>
-        </>
-    );
+    return <header>CINEFLEX</header>
 }

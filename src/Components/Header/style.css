@@ -1,6 +1,5 @@
 * {
     box-sizing: border-box;
-    font-family: Roboto;
 }
 header {
     width: 100%;
@@ -16,7 +15,6 @@ header {
 
     display: flex;
     align-items: center;
-    text-align: center;
     justify-content: center;
 
     color: #E8833A;
