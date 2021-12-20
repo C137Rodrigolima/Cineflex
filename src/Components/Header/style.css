@@ -1,11 +1,14 @@
 * {
     box-sizing: border-box;
-    font-family: "Roboto";
+    font-family: Roboto;
 }
 header {
     width: 100%;
     height: 67px;
+    position: fixed;
+    top: 0;
 
+    font-family: Roboto;
     font-style: normal;
     font-weight: normal;
     font-size: 34px;

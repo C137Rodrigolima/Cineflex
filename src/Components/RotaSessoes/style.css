@@ -1,6 +1,4 @@
 h3 {
-    margin-left: 7%;
-
     font-family: 'Roboto';
     font-style: normal;
     font-weight: normal;
@@ -11,4 +9,45 @@ h3 {
     letter-spacing: 0.02em;
 
     color: #293845;
+}
+
+.content {
+    margin-bottom: 127px;
+}
+
+.bloco-horario {
+    margin-bottom: 27px;
+    left: 0;
+    margin-left: 7%;
+}
+
+.buttom-box {
+    all: unset;
+    
+    display: flex;
+    gap: 8px;
+}
+
+.link-button {
+    text-decoration: none;
+}
+button {
+    all: unset;
+    width: 83px;
+    height: 43px;
+
+    font-family: Roboto;
+    font-size: 18px;
+    line-height: 21px;
+    text-align: center;
+    letter-spacing: 0.02em;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #FFFFFF;
+
+    background-color: #E8833A;
+    border-radius: 3px;
 }

@@ -1,6 +1,4 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useState } from "react";
-
 import Header from "./Components/Header";
 import RotaFilmes from "./Components/RotaFilmes";
 import RotaSessoes from "./Components/RotaSessoes";

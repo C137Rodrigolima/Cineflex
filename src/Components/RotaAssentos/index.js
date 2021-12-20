@@ -12,7 +12,6 @@ export default function RotaAssentos(sendInfoRequest){
     const [assentos, setAssentos] = useState({});
     const [nameClient, setNameClient] = useState('');
     const [cpfClient, setCpfClient] = useState('');
-    console.log(assentos);
 
     useEffect(() => {
         const PromessaAssentos = axios.get(`https://mock-api.driven.com.br/api/v4/cineflex/showtimes/${idSessao}/seats`);
@@ -68,21 +67,34 @@ export default function RotaAssentos(sendInfoRequest){
     return (
         <>
         <h1>Selecione o(s) assento(s)</h1>
-        <div className='conteiner-assentos'>
-        {assentos.seats.map((assento) =>
-        <Seates onClick={() => handleSeats(assento.isAvailable, assento.name, assento.id)} isAvailable={assento.isAvailable} key={assento.id}>
-            {assento.name}
-        </Seates>)}
+        <div className='content-assentos'>
+            <div className='conteiner-assentos'>
+                {assentos.seats.map((assento) =>
+                <Seates onClick={() => handleSeats(assento.isAvailable, assento.name, assento.id)} isAvailable={assento.isAvailable} key={assento.id}>
+                    {assento.name.length<2? `0${assento.name}`: assento.name}
+                </Seates>)}
+            </div>
+            <div className='conteiner-amostra'>
+                <div className='exemplo'>
+                    <div className='exemplo-1'></div><div>selecionado</div>
+                </div>
+                <div className='exemplo'>
+                <div className='exemplo-2'></div><div>disponível</div>
+                </div>
+                <div className='exemplo'>
+                <div className='exemplo-3'></div><div>indisponível</div>
+                </div>
+            </div>
+            <div className='conteiner-inputs'>
+                <h5>Nome do comprador:</h5>
+                <input placeholder='Digite seu nome...' value={nameClient} onChange={(event) => setNameClient(event.target.value)} />
+                <h5>CPF do comprador:</h5>
+                <input placeholder='Digite seu CPF...' value={cpfClient} onChange={(event) => setCpfClient(event.target.value)} />
+            </div>
+            <Link className='link-button' to="/sucesso" state={objectMovieOrder}>
+                <button className='button-2' onClick={sendRequestPost}>Reservar assento(s)</button>
+            </Link>
         </div>
-        <div className='conteiner-assentos'>
-        <p>Nome do comprador:</p>
-        <input placeholder='Digite seu nome...' value={nameClient} onChange={(event) => setNameClient(event.target.value)} />
-        <p>CPF do comprador:</p>
-        <input placeholder='Digite seu CPF...' value={cpfClient} onChange={(event) => setCpfClient(event.target.value)} />
-        </div>
-        <Link to="/sucesso" state={objectMovieOrder}>
-            <button onClick={sendRequestPost}>Reservar assento(s)</button>
-        </Link>
         <Footer>
             <div className="bloco-filme">
                 <img src={`${assentos.movie.posterURL}`} alt={`poster ${assentos.movie.title}`}/>
@@ -118,8 +130,10 @@ background-color: ${props => props.isAvailable === "selected"? "#8DD7CF" : props
 `;
 
 const Footer = styled.div `
-    width: 375px;
+    width: 100%;
     height: 117px;
+    position: fixed;
+    bottom: 0;
 
     font-family: Roboto;
     font-style: normal;
@@ -133,7 +147,7 @@ const Footer = styled.div `
     align-items: center;
 
     background: #DFE6ED;
-    border: 1px solid #9EADBA;
+    border-top: 1px solid #9EADBA;
 
     .bloco-filme{
         width: 64px;

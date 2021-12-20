@@ -22,34 +22,38 @@ export default function RotaSessoes(){
     return (
         <>
         <h1>Selecione o horário</h1>
+        <div className='content'>
             {sessoes.days.map((sessao) =>
             <div className='bloco-horario' key={sessao.id}>
                 <h3>{`${sessao.weekday} - ${sessao.date}`}</h3>
-                <Link to={`/assentos/${sessao.showtimes[0].id}`} key={sessao.showtimes[0].id}>
-                <button>{`${sessao.showtimes[0].name}`}</button>
-                </Link>
-                <Link to={`/assentos/${sessao.showtimes[1].id}`} key={sessao.showtimes[1].id}>
-                <button>{`${sessao.showtimes[1].name}`}</button>
-                </Link>
+                <div className='buttom-box'>
+                    <Link className='link-button' to={`/assentos/${sessao.showtimes[0].id}`} key={sessao.showtimes[0].id}>
+                    <button>{`${sessao.showtimes[0].name}`}</button>
+                    </Link>
+                    <Link className='link-button' to={`/assentos/${sessao.showtimes[1].id}`} key={sessao.showtimes[1].id}>
+                    <button>{`${sessao.showtimes[1].name}`}</button>
+                    </Link>
+                </div>
             </div>
             )}
-            <Footer>
-                <div className="bloco-filme">
-                    <img src={`${sessoes.posterURL}`} alt={`poster ${sessoes.title}`}/>
-                </div>
-                <div>
-                    <p>{sessoes.title}</p>
-                </div>
-            </Footer>
+        </div>
+        <Footer>
+            <div className="bloco-filme">
+                <img src={`${sessoes.posterURL}`} alt={`poster ${sessoes.title}`}/>
+            </div>
+            <div>
+                <p>{sessoes.title}</p>
+            </div>
+        </Footer>
         </>
     );
 }
 
 const Footer = styled.div `
-    width: 375px;
+    width: 100%;
     height: 117px;
-    left: 0px;
-    bottom: 0px;
+    position: fixed;
+    bottom: 0;
 
     font-family: 'Roboto';
     font-style: normal;
@@ -63,7 +67,7 @@ const Footer = styled.div `
     align-items: center;
 
     background: #DFE6ED;
-    border: 1px solid #9EADBA;
+    border-top: 1px solid #9EADBA;
 
     .bloco-filme{
         width: 64px;

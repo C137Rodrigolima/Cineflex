@@ -1,5 +1,6 @@
 import { useLocation } from 'react-router-dom'
 import { Link } from "react-router-dom";
+import "./style.css";
 export default function RotaSucesso(){
     let location = useLocation()
     const {
@@ -12,19 +13,32 @@ export default function RotaSucesso(){
 
     return (
         <>
-        <h1>Pedido feito com sucesso!</h1>
-        <bold>Filme e sessão</bold>
-        <p>{location.state.movieName}</p>
-        <p>{`${location.state.sessao} ${location.state.date}`}</p>
-        <bold>Ingressos</bold>
-        {seatsArray.map((seat) => <p>Assento {seat}</p>)}
-        <bold>Comprador</bold>
-        <p>Nome: {location.state.name}</p>
-        <p>CPF: {location.state.cpf}</p>
+        <div className='titulo-sucesso'>
+            <p>Pedido feito</p>
+            <p>com sucesso!</p>
+        </div>
+        <div className='content-sucesso'>
+            <div className='text-sucesso'>
+                <div className='titulo-info'>Filme e sessão</div>
+                <div className='order-info'>{location.state.movieName}</div>
+                <div className='order-info'>{`${location.state.sessao} ${location.state.date}`}</div>
+            </div>
+            <div className='text-sucesso'>
+            <div className='titulo-info'>Ingressos</div>
+                {seatsArray.map((seat) => <div className='order-info'>Assento {seat<10? "0"+seat : seat}</div>)}
+            </div>
+            <div className='text-sucesso'>
+            <div className='titulo-info'>Comprador</div>
+                <div className='order-info'>Nome: {location.state.name}</div>
+                <div className='order-info'>CPF: {location.state.cpf}</div>
+            </div>
 
-        <Link to="/" >
-            <button>Voltar pra Home</button>
-        </Link>
+        </div>
+        <div className='button-sucesso'>
+            <Link className='link-button' to="/" >
+                <button className='button-3'>Voltar pra Home</button>
+            </Link>
+        </div>
         </>
     );
 }
