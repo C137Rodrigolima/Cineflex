@@ -63,6 +63,7 @@ export default function RotaAssentos(){
             cpf: cpfClient
         }
         const promessaEnvio = axios.post("https://mock-api.driven.com.br/api/v4/cineflex/seats/book-many", objectSeatsOrder);
+        promessaEnvio.catch((error)=> console.log(error));
     }
 
     return (

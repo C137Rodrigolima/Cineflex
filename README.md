@@ -5,6 +5,8 @@
 </p>
 
 A single-page app of a cinema movies catalog that allows the client make a seats request.
+</br>
+Try it now [here](https://cineflex-ke1mbcqh2-c137rodrigolima.vercel.app/)
 
 ## About
 
